@@ -3,6 +3,7 @@ package work.tomosse.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,7 +37,10 @@ public class PostController {
      * @return mav
      */
     @GetMapping("post/{id}")
-    public ModelAndView show(ModelAndView mav) {
+    public ModelAndView show(ModelAndView mav, @PathVariable("id") int id) {
+        val post = postRepository.findById(id);
+        mav.addObject("id", id);
+        mav.addObject("post", post);
         mav.setViewName("post/show");
         return mav;
     }
