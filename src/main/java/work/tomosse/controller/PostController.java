@@ -3,11 +3,14 @@ package work.tomosse.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.val;
+import work.tomosse.entity.Post;
 import work.tomosse.repository.PostRepository;
 
 @Controller
@@ -63,9 +66,15 @@ public class PostController {
      * @param mav
      * @return mav
      */
-    @GetMapping("post/edit/{id}")
+    @GetMapping("post/{id}/edit")
     public ModelAndView edit(ModelAndView mav) {
         mav.setViewName("post/show");
         return mav;
+    }
+
+    @PostMapping("post")
+    public String create(@ModelAttribute Post post) {
+        postRepository.save(post);
+        return "redirect:/";
     }
 }

@@ -13,6 +13,7 @@ import lombok.Data;
 public class Post {
       @Id
       @GeneratedValue(strategy=GenerationType.IDENTITY)
+      @Column
       private int id;
 
       @Column(name="title")
