@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -68,8 +69,12 @@ public class PostController {
      * @return mav
      */
     @GetMapping("post/{id}/edit")
-    public ModelAndView edit(ModelAndView mav) {
-        mav.setViewName("post/show");
+    public ModelAndView edit(ModelAndView mav, @PathVariable("id") int id) {
+        val post = postRepository.findById(id);
+        mav.addObject("id", id);
+        mav.addObject("title", post.get().getTitle());
+        mav.addObject("body", post.get().getBody());
+        mav.setViewName("post/edit");
         return mav;
     }
 
@@ -81,6 +86,12 @@ public class PostController {
      */
     @PostMapping("post")
     public String create(@ModelAttribute Post post) {
+        postRepository.save(post);
+        return "redirect:/";
+    }
+
+    @PutMapping("post/{id}")
+    public String update(@ModelAttribute Post post) {
         postRepository.save(post);
         return "redirect:/";
     }

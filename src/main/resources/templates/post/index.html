@@ -18,6 +18,7 @@
       <td th:text="${post.title}"></td>
       <td th:text="${post.body}"></td>
       <td><a th:href="@{/post/{id}(id=${post.id})}">show</a></td>
+      <td><a th:href="@{/post/{id}/edit(id=${post.id})}">edit</a></td>
     </tr>
   </table>
 </body>
