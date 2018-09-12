@@ -5,11 +5,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Show Page</h1>
+  <h1>Show Page</h1>
 
-<a th:href="@{/}">index</a>
-<p th:text="${id}"></p>
-<p th:text="${post}"></p>
+  <a th:href="@{/}">index</a>
+  <p th:text="${id}"></p>
+  <p th:text="${post}"></p>
+
+  <form th:method="delete" th:action="@{/post/{id}(id=${id})}">
+    <input type="submit" value="削除">
+  </form>
 
 </body>
 </html>
